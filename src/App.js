@@ -5,6 +5,8 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
+import Debit from './components/Debits';
+import axios from 'axios'; 
 
 class App extends Component {
   constructor() {  // Create and initialize state
@@ -14,7 +16,9 @@ class App extends Component {
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '07/23/96',
-      }
+      },
+      debitsArray: [],
+      creditsArray: [],
     }
   }
 
@@ -25,6 +29,17 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  //Parses API for debits
+  async componentDidMount() {
+    let linktoAPI = 'https://moj-api.herokuapp.com/debits';
+    let response = await axios.get(linktoAPI);
+    //console.log(response);
+    console.log("data in App", response.data)
+    this.setState({debitsArray: response.data})
+    console.log("debitsArray", this.state.debitsArray)
+  }
+
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);
@@ -32,13 +47,14 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
-
+    const DebitComponent = () => (<Debit accountBalance={this.state.accountBalance} debitsArray={this.state.debitsArray}/>);
     return (
       <Router>
         <div>
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>
+          <Route exact path="/debit" render={DebitComponent}/>
         </div>
       </Router>
     );
