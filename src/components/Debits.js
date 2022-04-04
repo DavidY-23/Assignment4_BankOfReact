@@ -1,14 +1,40 @@
 // src/components/Debits.js
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios'; 
 
 class Debits extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accountBalance: this.props.accountBalance
+      accountBalance: this.props.accountBalance,
+      debitsList: []
     };
   }
+  async componentDidMount() {
+    let linktoAPI = 'https://moj-api.herokuapp.com/debits';
+    let response = await axios.get(linktoAPI);
+    console.log(response);
+    console.log("data", response.data)
+    this.setState({debitsList: response.data})
+  }
+
+
+
+
+  debitView = () => {
+    return(
+      this.state.debitsList.map((debitList) => {
+        return(
+          <ul>{debitList.description}, ${debitList.amount}, {debitList.date}</ul>
+
+        )
+      })
+
+    )
+  }
+
+
   addDebit = (e) => {
     e.preventDefault()
     this.setState((prevState)=> ({
@@ -22,7 +48,8 @@ class Debits extends Component {
     return (
       <div>
       <h1>Debits</h1>
-      <p>Balance: {this.state.accountBalance}</p>
+      <h2>Balance: {this.state.accountBalance}</h2>
+      {this.debitView()}
       <form onSubmit={this.addDebit}>
         <input type="text" name="description" />
         <input type="number" name="amount" />
