@@ -1,6 +1,40 @@
 // src/components/Debits.js
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
-const Debits = (props) => {
+class Debits extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      accountBalance: this.props.accountBalance
+    };
+  }
+  addDebit = (e) => {
+    e.preventDefault()
+    this.setState((prevState)=> ({
+      accountBalance: prevState.accountBalance - e.target.amount.value
+    }))
+
+    console.log(e.target.amount.value)
+  }
+
+  render() {
+    return (
+      <div>
+      <h1>Debits</h1>
+      <p>Balance: {this.state.accountBalance}</p>
+      <form onSubmit={this.addDebit}>
+        <input type="text" name="description" />
+        <input type="number" name="amount" />
+        <button type="submit">Add Debit</button>
+      </form>
+    </div>
+    );
+  }
+}
+
+
+const Debit = (props) => {
 	let debitsView = () => {
     const { debits } = props;
     return debits.map((debit) => {
