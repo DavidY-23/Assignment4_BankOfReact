@@ -18,7 +18,8 @@ const Debits = (props) => {
         <button type="submit">Add Debit</button>
       </form>
     </div>
-  )
+  );
+  
 }
 
 export default Debits;
