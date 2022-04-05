@@ -16,7 +16,7 @@ class Home extends Component {
         <br/>
         <Link to="/login">Login</Link>
         <br/>
-        <Link to="">Credits (to be implemented in the Assignment)</Link>
+        <Link to="/credit">Credits</Link>
         <br/>
         <Link to="/debit">Debits</Link>
         
