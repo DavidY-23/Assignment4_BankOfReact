@@ -56,7 +56,7 @@ class App extends Component {
     const CreditComponent = () => (<Credit accountBalance={this.state.accountBalance} creditsArray={this.state.creditsArray}/>);
 
     return (
-      <Router>
+      <Router basename="/Assignment4_BankOfReact">
         <div>
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
