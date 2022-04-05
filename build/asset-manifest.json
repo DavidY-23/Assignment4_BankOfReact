@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/DavidY-23/Assignment4_BankOfReact/static/css/main.8287159a.chunk.css",
+    "main.js": "/DavidY-23/Assignment4_BankOfReact/static/js/main.95249b38.chunk.js",
+    "main.js.map": "/DavidY-23/Assignment4_BankOfReact/static/js/main.95249b38.chunk.js.map",
+    "runtime-main.js": "/DavidY-23/Assignment4_BankOfReact/static/js/runtime-main.87c43470.js",
+    "runtime-main.js.map": "/DavidY-23/Assignment4_BankOfReact/static/js/runtime-main.87c43470.js.map",
+    "static/js/2.aca72958.chunk.js": "/DavidY-23/Assignment4_BankOfReact/static/js/2.aca72958.chunk.js",
+    "static/js/2.aca72958.chunk.js.map": "/DavidY-23/Assignment4_BankOfReact/static/js/2.aca72958.chunk.js.map",
+    "static/js/3.e9b55be1.chunk.js": "/DavidY-23/Assignment4_BankOfReact/static/js/3.e9b55be1.chunk.js",
+    "static/js/3.e9b55be1.chunk.js.map": "/DavidY-23/Assignment4_BankOfReact/static/js/3.e9b55be1.chunk.js.map",
+    "index.html": "/DavidY-23/Assignment4_BankOfReact/index.html",
+    "static/css/main.8287159a.chunk.css.map": "/DavidY-23/Assignment4_BankOfReact/static/css/main.8287159a.chunk.css.map",
+    "static/js/2.aca72958.chunk.js.LICENSE.txt": "/DavidY-23/Assignment4_BankOfReact/static/js/2.aca72958.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.87c43470.js",
+    "static/js/2.aca72958.chunk.js",
+    "static/css/main.8287159a.chunk.css",
+    "static/js/main.95249b38.chunk.js"
+  ]
+}
