@@ -1,29 +1,28 @@
-// src/components/Debits.js
+// src/components/Credits.js
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios'; 
 
-class Debits extends Component {
+class Credits extends Component {
   constructor(props) {
     super(props);
     this.state = {
       accountBalance: this.props.accountBalance,
-      debitsArray: this.props.debitsArray,
+      creditsArray: this.props.creditsArray,
     };
   }
 
   //Parsing API
   async componentDidMount() {
-    let linktoAPI = 'https://moj-api.herokuapp.com/debits';
+    let linktoAPI = 'https://moj-api.herokuapp.com/credits';
     let response = await axios.get(linktoAPI);
-    this.setState({debitsArray: response.data})
+    this.setState({creditsArray: response.data})
   }
-  
 
-  debitView = () => {
-    const listofDebits = this.state.debitsArray.map((eachDebit) => 
+  creditView = () => {
+    const listofDebits = this.state.creditsArray.map((eachCredit) => 
     
-      <li key={eachDebit.description}>{eachDebit.description}, ${eachDebit.amount}, {eachDebit.date}</li>
+      <li key={eachCredit.description}>{eachCredit.description}, ${eachCredit.amount}, {eachCredit.date}</li>
     ) 
     return (
       <ul>{listofDebits}</ul>
@@ -31,7 +30,7 @@ class Debits extends Component {
   }
 
 
-  addDebit = (e) => {
+  addCredit = (e) => {
     e.preventDefault()
     var currentDate = new Date();
     var currentMonth = currentDate.getUTCMonth() + 1
@@ -41,21 +40,21 @@ class Debits extends Component {
     if (e.target.description.value === "" || e.target.amount.value === "")
       return;
     this.setState((prevState)=> ({
-      accountBalance: prevState.accountBalance - e.target.amount.value,
-      debitsArray: [...prevState.debitsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}]
+      accountBalance: prevState.accountBalance -  -Math.abs(e.target.amount.value),
+      creditsArray: [...prevState.creditsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}]
     }))
   }
 
   render() {
     return (
       <div>
-      <h1>Debits</h1>
-      {this.debitView()}
+      <h1>Credit</h1>
+      {this.creditView()}
       <h2>Balance: {this.state.accountBalance}</h2>
-      <form onSubmit={this.addDebit}>
+      <form onSubmit={this.addCredit}>
         <input type="text" name="description" />
         <input type="number" name="amount" />
-        <button type="submit">Add Debit</button>
+        <button type="submit">Add Credit</button>
       </form>
       <Link to="/">Return to Home</Link>
     </div>
@@ -64,4 +63,4 @@ class Debits extends Component {
 }
 
 
-export default Debits;
+export default Credits;
