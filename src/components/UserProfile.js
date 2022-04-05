@@ -5,6 +5,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 class UserProfile extends Component {
+  componentDidMount(){
+    document.title = "User Profile"
+  }
   render() {
     return (
         <div>

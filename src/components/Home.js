@@ -6,6 +6,9 @@ import AccountBalance from './AccountBalance';
 import {Link} from 'react-router-dom';
 
 class Home extends Component {
+  componentDidMount(){
+    document.title = "Bank of React"
+  }
   render() {
     return (
       <div>

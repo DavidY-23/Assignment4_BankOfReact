@@ -14,6 +14,7 @@ class Debits extends Component {
 
   //Parsing API
   async componentDidMount() {
+    document.title = "Debits"
     let linktoAPI = 'https://moj-api.herokuapp.com/debits';
     let response = await axios.get(linktoAPI);
     this.setState({debitsArray: response.data})
@@ -41,7 +42,7 @@ class Debits extends Component {
     if (e.target.description.value === "" || e.target.amount.value === "")
       return;
     this.setState((prevState)=> ({
-      accountBalance: prevState.accountBalance - e.target.amount.value,
+      accountBalance: (prevState.accountBalance - e.target.amount.value).toFixed(2),
       debitsArray: [...prevState.debitsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}]
     }))
   }
@@ -54,7 +55,7 @@ class Debits extends Component {
       <h2>Balance: {this.state.accountBalance}</h2>
       <form onSubmit={this.addDebit}>
         <input type="text" name="description" />
-        <input type="number" name="amount" />
+        <input type="number" step="0.01"  name="amount" />
         <button type="submit">Add Debit</button>
       </form>
       <Link to="/">Return to Home</Link>

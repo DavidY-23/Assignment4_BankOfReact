@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios'; 
 
 class Credits extends Component {
+    
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +15,7 @@ class Credits extends Component {
 
   //Parsing API
   async componentDidMount() {
+    document.title = "Credits"
     let linktoAPI = 'https://moj-api.herokuapp.com/credits';
     let response = await axios.get(linktoAPI);
     this.setState({creditsArray: response.data})
@@ -40,7 +42,7 @@ class Credits extends Component {
     if (e.target.description.value === "" || e.target.amount.value === "")
       return;
     this.setState((prevState)=> ({
-      accountBalance: prevState.accountBalance -  -Math.abs(e.target.amount.value),
+      accountBalance: (prevState.accountBalance -  -Math.abs(e.target.amount.value)).toFixed(2),
       creditsArray: [...prevState.creditsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}]
     }))
   }
@@ -53,7 +55,7 @@ class Credits extends Component {
       <h2>Balance: {this.state.accountBalance}</h2>
       <form onSubmit={this.addCredit}>
         <input type="text" name="description" />
-        <input type="number" name="amount" />
+        <input type="number" step="0.01" name="amount" />
         <button type="submit">Add Credit</button>
       </form>
       <Link to="/">Return to Home</Link>

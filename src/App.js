@@ -36,10 +36,7 @@ class App extends Component {
     let linktoAPICredit = 'https://moj-api.herokuapp.com/credits'
     let response = await axios.get(linktoAPI);
     let responseCredit = await axios.get(linktoAPICredit)
-    //console.log(response);
-    console.log("data in App", response.data)
     this.setState({debitsArray: response.data})
-    console.log("debitsArray", this.state.debitsArray)
     this.setState({creditsArray: responseCredit.data})
   }
 

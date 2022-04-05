@@ -15,7 +15,9 @@ class LogIn extends Component {
       redirect: false
     }
   }
-
+  componentDidMount(){
+    document.title = "Login"
+  }
   // When the user name input is changed, capture the input and update the state (user.userName)
   handleChange = (e) => {
     const updatedUser = {...this.state.user}
