@@ -20,12 +20,12 @@ class Credits extends Component {
   }
 
   creditView = () => {
-    const listofDebits = this.state.creditsArray.map((eachCredit) => 
+    const listofCredits = this.state.creditsArray.map((eachCredit) => 
     
       <li key={eachCredit.description}>{eachCredit.description}, ${eachCredit.amount}, {eachCredit.date}</li>
     ) 
     return (
-      <ul>{listofDebits}</ul>
+      <ul>{listofCredits}</ul>
     )
   }
 
