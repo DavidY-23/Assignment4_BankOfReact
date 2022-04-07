@@ -12,7 +12,7 @@ class Debits extends Component {
     };
   }
 
-  //Parsing API
+  //Parsing API for initial list of debit
   async componentDidMount() {
     document.title = "Debits"
     let linktoAPI = 'https://moj-api.herokuapp.com/debits';
@@ -20,18 +20,17 @@ class Debits extends Component {
     this.setState({debitsArray: response.data})
   }
   
-
+  //Creating the list of debits. 
   debitView = () => {
     const listofDebits = this.state.debitsArray.map((eachDebit) => 
-    
-      <li key={eachDebit.description}>{eachDebit.description}, ${eachDebit.amount}, {eachDebit.date}</li>
+      <li style={{listStylePosition: "inside"}} key={eachDebit.description}>{eachDebit.description}, ${eachDebit.amount}, {eachDebit.date}</li>
     ) 
     return (
       <ul>{listofDebits}</ul>
     )
   }
 
-
+  //Function to add a new debit including the description, cost, and time.
   addDebit = (e) => {
     e.preventDefault()
     var currentDate = new Date();
@@ -54,8 +53,12 @@ class Debits extends Component {
       {this.debitView()}
       <h2>Balance: {this.state.accountBalance}</h2>
       <form onSubmit={this.addDebit}>
+      <label>Description: 
         <input type="text" name="description" />
-        <input type="number" step="0.01"  name="amount" />
+        </label>
+        <label> Amount:
+        <input type="number" step="0.01" name="amount" />
+        </label>
         <button type="submit">Add Debit</button>
       </form>
       <Link to="/">Return to Home</Link>

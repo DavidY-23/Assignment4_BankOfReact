@@ -13,25 +13,25 @@ class Credits extends Component {
     };
   }
 
-  //Parsing API
+  //Parsing API for credits
   async componentDidMount() {
     document.title = "Credits"
     let linktoAPI = 'https://moj-api.herokuapp.com/credits';
     let response = await axios.get(linktoAPI);
     this.setState({creditsArray: response.data})
   }
-
+  //Creating the list of debits. 
   creditView = () => {
     const listofCredits = this.state.creditsArray.map((eachCredit) => 
     
-      <li key={eachCredit.description}>{eachCredit.description}, ${eachCredit.amount}, {eachCredit.date}</li>
+      <li style={{listStylePosition: "inside"}}key={eachCredit.description}>{eachCredit.description}, ${eachCredit.amount}, {eachCredit.date}</li>
     ) 
     return (
       <ul>{listofCredits}</ul>
     )
   }
 
-
+  //Function to add a new credit including the description, cost, and time.
   addCredit = (e) => {
     e.preventDefault()
     var currentDate = new Date();
@@ -54,8 +54,12 @@ class Credits extends Component {
       {this.creditView()}
       <h2>Balance: {this.state.accountBalance}</h2>
       <form onSubmit={this.addCredit}>
+        <label>Description: 
         <input type="text" name="description" />
+        </label>
+        <label> Amount:
         <input type="number" step="0.01" name="amount" />
+        </label>
         <button type="submit">Add Credit</button>
       </form>
       <Link to="/">Return to Home</Link>
