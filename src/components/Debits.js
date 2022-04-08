@@ -43,7 +43,6 @@ class Debits extends Component {
       <div>
       <h1>Debits</h1>
       {this.debitView()}
-
       <h2>Balance: {this.props.accountBalance}</h2>
       <form onSubmit={this.addDebit}>
       <label>Description: 
@@ -56,7 +55,7 @@ class Debits extends Component {
       </form>
       <Link to="/">Return to Home</Link>
       <br></br>
-
+      <Link to="/credit">Credits</Link>
     </div>
     );
   }
