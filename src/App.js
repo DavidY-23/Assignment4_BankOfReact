@@ -43,6 +43,8 @@ class App extends Component {
 
   //Change value of accountBalance and debitArray props when adding a new debit. 
   addingDebits = (e) => {
+    if (e.target.description.value === "" || e.target.amount.value === "")
+    return;
     var currentDate = new Date();
     var currentMonth = currentDate.getUTCMonth() + 1
     var currentDay = currentDate.getUTCDate()
@@ -55,6 +57,8 @@ class App extends Component {
   }
   //Change value of accountBalance and creditArray props when adding a new debit.  
   addingCredits = (e) => {
+    if (e.target.description.value === "" || e.target.amount.value === "")
+    return;
     var currentDate = new Date();
     var currentMonth = currentDate.getUTCMonth() + 1
     var currentDay = currentDate.getUTCDate()
@@ -75,7 +79,7 @@ class App extends Component {
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
     const DebitComponent = () => (<Debit accountBalance={this.state.accountBalance} debitsArray={this.state.debitsArray} addingDebits={this.addingDebits}/>);
     const CreditComponent = () => (<Credit accountBalance={this.state.accountBalance} creditsArray={this.state.creditsArray} addingCredits={this.addingCredits}/>);
-    
+
     return (
       <Router basename="/Assignment4_BankOfReact">
         <div>
