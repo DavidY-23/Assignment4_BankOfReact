@@ -1,11 +1,6 @@
 // src/components/Debits.js
-import React, {Component, useEffect} from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios'; 
-import Credit from './Credits';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import { connect } from 'react-redux';
-import AccountBalance from './AccountBalance';
 class Debits extends Component {
   constructor(props) {
     super(props);
@@ -15,16 +10,6 @@ class Debits extends Component {
     };
   }
 
-  //Parsing API for initial list of debit
-  /*
-  async componentDidMount() {
-    document.title = "Debits"
-    let linktoAPI = 'https://moj-api.herokuapp.com/debits';
-    let response = await axios.get(linktoAPI);
-    this.setState({debitsArray: response.data})
-  }
-  */
-  
   //Creating the list of debits. 
   debitView = () => {
     const listofDebits = this.props.debitsArray.map((eachDebit) => 
@@ -38,7 +23,7 @@ class Debits extends Component {
   //Function to add a new debit including the description, cost, and time.
   addDebit = (e) => {
     e.preventDefault()
-    this.props.handleClick(e)
+    this.props.addingDebits(e)
     var currentDate = new Date();
     var currentMonth = currentDate.getUTCMonth() + 1
     var currentDay = currentDate.getUTCDate()
@@ -58,6 +43,7 @@ class Debits extends Component {
       <div>
       <h1>Debits</h1>
       {this.debitView()}
+
       <h2>Balance: {this.props.accountBalance}</h2>
       <form onSubmit={this.addDebit}>
       <label>Description: 
@@ -75,14 +61,5 @@ class Debits extends Component {
     );
   }
 }
-/** 
-const mapStateToProps= (state) => {
-  return {
-    accountBalance: this.state.accountBalance,
 
-  }
-} 
-
-export default connect(mapStateToProps)(Debits);
-**/
 export default Debits
