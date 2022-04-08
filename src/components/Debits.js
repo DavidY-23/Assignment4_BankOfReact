@@ -1,28 +1,18 @@
 // src/components/Debits.js
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios'; 
-
 class Debits extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accountBalance: this.props.accountBalance,
-      debitsArray: this.props.debitsArray,
+      accountBalance: 0,
+      debitsArray: [],
     };
   }
 
-  //Parsing API for initial list of debit
-  async componentDidMount() {
-    document.title = "Debits"
-    let linktoAPI = 'https://moj-api.herokuapp.com/debits';
-    let response = await axios.get(linktoAPI);
-    this.setState({debitsArray: response.data})
-  }
-  
   //Creating the list of debits. 
   debitView = () => {
-    const listofDebits = this.state.debitsArray.map((eachDebit) => 
+    const listofDebits = this.props.debitsArray.map((eachDebit) => 
       <li style={{listStylePosition: "inside"}} key={eachDebit.description}>{eachDebit.description}, ${eachDebit.amount}, {eachDebit.date}</li>
     ) 
     return (
@@ -33,6 +23,7 @@ class Debits extends Component {
   //Function to add a new debit including the description, cost, and time.
   addDebit = (e) => {
     e.preventDefault()
+    this.props.addingDebits(e)
     var currentDate = new Date();
     var currentMonth = currentDate.getUTCMonth() + 1
     var currentDay = currentDate.getUTCDate()
@@ -46,12 +37,14 @@ class Debits extends Component {
     }))
   }
 
+
   render() {
     return (
       <div>
       <h1>Debits</h1>
       {this.debitView()}
-      <h2>Balance: {this.state.accountBalance}</h2>
+
+      <h2>Balance: {this.props.accountBalance}</h2>
       <form onSubmit={this.addDebit}>
       <label>Description: 
         <input type="text" name="description" />
@@ -62,10 +55,11 @@ class Debits extends Component {
         <button type="submit">Add Debit</button>
       </form>
       <Link to="/">Return to Home</Link>
+      <br></br>
+
     </div>
     );
   }
 }
 
-
-export default Debits;
+export default Debits
