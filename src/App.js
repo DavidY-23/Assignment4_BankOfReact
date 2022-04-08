@@ -8,8 +8,6 @@ import LogIn from './components/Login';
 import Debit from './components/Debits';
 import Credit from './components/Credits';
 import axios from 'axios'; 
-import redux, { createStore } from 'redux';
-import { connect } from 'react-redux';
 
 class App extends Component {
   constructor() {  // Create and initialize state
@@ -43,7 +41,8 @@ class App extends Component {
     this.setState({creditsArray: responseCredit.data})
   }
 
-  handleClick = (e) => {
+  //Change value of accountBalance and debitArray props when adding a new debit. 
+  addingDebits = (e) => {
     var currentDate = new Date();
     var currentMonth = currentDate.getUTCMonth() + 1
     var currentDay = currentDate.getUTCDate()
@@ -54,7 +53,18 @@ class App extends Component {
       debitsArray: [...prevState.debitsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}],
     }))
   }
-
+  //Change value of accountBalance and creditArray props when adding a new debit.  
+  addingCredits = (e) => {
+    var currentDate = new Date();
+    var currentMonth = currentDate.getUTCMonth() + 1
+    var currentDay = currentDate.getUTCDate()
+    var currentYear = currentDate.getUTCFullYear()
+    var currentTime = currentYear + '-' + currentMonth + '-' + currentDay
+    this.setState((prevState)=> ({
+      accountBalance: (this.state.accountBalance -  -Math.abs(e.target.amount.value)).toFixed(2),
+      creditsArray: [...prevState.creditsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}],
+    }))
+  }
 
   // Create Routes and React elements to be rendered using React components
   render() {  
@@ -63,13 +73,12 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
-    const DebitComponent = () => (<Debit accountBalance={this.state.accountBalance} debitsArray={this.state.debitsArray} handleClick={this.handleClick}/>);
-    const CreditComponent = () => (<Credit accountBalance={this.state.accountBalance} creditsArray={this.state.creditsArray}/>);
-  
+    const DebitComponent = () => (<Debit accountBalance={this.state.accountBalance} debitsArray={this.state.debitsArray} addingDebits={this.addingDebits}/>);
+    const CreditComponent = () => (<Credit accountBalance={this.state.accountBalance} creditsArray={this.state.creditsArray} addingCredits={this.addingCredits}/>);
+    
     return (
       <Router basename="/Assignment4_BankOfReact">
         <div>
-          <button onClick={this.handleClick}>help</button>
           <Route exact path="/" render={HomeComponent}/>
           <Route exact path="/userProfile" render={UserProfileComponent}/>
           <Route exact path="/login" render={LogInComponent}/>

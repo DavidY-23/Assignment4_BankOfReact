@@ -1,28 +1,19 @@
 // src/components/Credits.js
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios'; 
 
 class Credits extends Component {
-    
   constructor(props) {
     super(props);
     this.state = {
-      accountBalance: this.props.accountBalance,
-      creditsArray: this.props.creditsArray,
+      accountBalance: 0,
+      creditsArray: [],
     };
   }
 
-  //Parsing API for credits
-  async componentDidMount() {
-    document.title = "Credits"
-    let linktoAPI = 'https://moj-api.herokuapp.com/credits';
-    let response = await axios.get(linktoAPI);
-    this.setState({creditsArray: response.data})
-  }
   //Creating the list of debits. 
   creditView = () => {
-    const listofCredits = this.state.creditsArray.map((eachCredit) => 
+    const listofCredits = this.props.creditsArray.map((eachCredit) => 
     
       <li style={{listStylePosition: "inside"}}key={eachCredit.description}>{eachCredit.description}, ${eachCredit.amount}, {eachCredit.date}</li>
     ) 
@@ -34,6 +25,7 @@ class Credits extends Component {
   //Function to add a new credit including the description, cost, and time.
   addCredit = (e) => {
     e.preventDefault()
+    this.props.addingCredits(e)
     var currentDate = new Date();
     var currentMonth = currentDate.getUTCMonth() + 1
     var currentDay = currentDate.getUTCDate()
@@ -52,7 +44,7 @@ class Credits extends Component {
       <div>
       <h1>Credit</h1>
       {this.creditView()}
-      <h2>Balance: {this.state.accountBalance}</h2>
+      <h2>Balance: {this.props.accountBalance}</h2>
       <form onSubmit={this.addCredit}>
         <label>Description: 
         <input type="text" name="description" />
@@ -63,6 +55,8 @@ class Credits extends Component {
         <button type="submit">Add Credit</button>
       </form>
       <Link to="/">Return to Home</Link>
+      <br></br>
+      <Link to="/debit">Debits</Link>
     </div>
     );
   }
