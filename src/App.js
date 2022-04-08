@@ -65,7 +65,7 @@ class App extends Component {
     var currentYear = currentDate.getUTCFullYear()
     var currentTime = currentYear + '-' + currentMonth + '-' + currentDay
     this.setState((prevState)=> ({
-      accountBalance: (this.state.accountBalance -  -Math.abs(e.target.amount.value)).toFixed(2),
+      accountBalance: (this.state.accountBalance -  -(e.target.amount.value)).toFixed(2),
       creditsArray: [...prevState.creditsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}],
     }))
   }

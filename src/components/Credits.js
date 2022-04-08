@@ -34,7 +34,7 @@ class Credits extends Component {
     if (e.target.description.value === "" || e.target.amount.value === "")
       return;
     this.setState((prevState)=> ({
-      accountBalance: (prevState.accountBalance -  -Math.abs(e.target.amount.value)).toFixed(2),
+      accountBalance: (prevState.accountBalance -  -(e.target.amount.value)).toFixed(2),
       creditsArray: [...prevState.creditsArray, {description: e.target.description.value, amount: e.target.amount.value, date: currentTime}]
     }))
   }
