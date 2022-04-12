@@ -13,7 +13,7 @@ class Debits extends Component {
   //Creating the list of debits. 
   debitView = () => {
     const listofDebits = this.props.debitsArray.map((eachDebit) => 
-      <li style={{listStylePosition: "inside"}} key={eachDebit.description}>{eachDebit.description}, ${eachDebit.amount}, {eachDebit.date}</li>
+      <li style={{listStylePosition: "inside"}} key={eachDebit.description}>{eachDebit.description}, ${eachDebit.amount}, {eachDebit.date.slice(0,10)}</li>
     ) 
     return (
       <ul>{listofDebits}</ul>

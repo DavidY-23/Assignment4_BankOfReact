@@ -15,7 +15,7 @@ class Credits extends Component {
   creditView = () => {
     const listofCredits = this.props.creditsArray.map((eachCredit) => 
     
-      <li style={{listStylePosition: "inside"}}key={eachCredit.description}>{eachCredit.description}, ${eachCredit.amount}, {eachCredit.date}</li>
+      <li style={{listStylePosition: "inside"}}key={eachCredit.description}>{eachCredit.description}, ${eachCredit.amount}, {eachCredit.date.slice(0,10)}</li>
     ) 
     return (
       <ul>{listofCredits}</ul>
